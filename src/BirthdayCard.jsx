@@ -65,88 +65,66 @@ function BirthdayCard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-100 to-indigo-100 py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Card Container with 3D perspective */}
+        {/* Card Container */}
         <div 
           className="relative w-full"
-          style={{ perspective: '2000px', minHeight: '600px' }}
+          style={{ minHeight: '600px' }}
         >
-          {/* The actual card with flip animation */}
-          <div
-            className={`relative w-full transition-transform duration-1000 ease-in-out`}
-            style={{
-              transformStyle: 'preserve-3d',
-              transform: isCardOpen ? 'rotateY(180deg)' : 'rotateY(0deg)',
-            }}
-          >
-            {/* CARD FRONT (Closed View) */}
-            <div
-              className={`w-full ${!isCardOpen ? 'cursor-pointer' : 'pointer-events-none'}`}
-              style={{
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
-              }}
-              onClick={handleCardClick}
-            >
-              <div className="bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-700 rounded-3xl shadow-2xl p-12 md:p-20 min-h-[600px] flex flex-col items-center justify-center text-center border-4 border-white">
-                {/* Decorative elements */}
-                <div className="absolute top-8 left-8 text-6xl animate-bounce">🎮</div>
-                <div className="absolute top-8 right-8 text-6xl animate-bounce delay-100">🎉</div>
-                <div className="absolute bottom-8 left-8 text-6xl animate-bounce delay-200">🎂</div>
-                <div className="absolute bottom-8 right-8 text-6xl animate-bounce delay-300">🎁</div>
-                
-                {/* Main content */}
-                <div className="relative z-10">
-                  <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 drop-shadow-lg leading-tight">
-                    Happy {currentAge}th Birthday,
-                    <br />
-                    <span className="text-cyan-300">Alan!</span>
-                  </h1>
+          {/* CARD FRONT (Closed View) */}
+          {!isCardOpen && (
+            <div className="w-full cursor-pointer animate-fade-in" onClick={handleCardClick}>
+                <div className="bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-700 rounded-3xl shadow-2xl p-12 md:p-20 min-h-[600px] flex flex-col items-center justify-center text-center border-4 border-white">
+                  {/* Decorative elements */}
+                  <div className="absolute top-8 left-8 text-6xl animate-bounce">🎮</div>
+                  <div className="absolute top-8 right-8 text-6xl animate-bounce delay-100">🎉</div>
+                  <div className="absolute bottom-8 left-8 text-6xl animate-bounce delay-200">🎂</div>
+                  <div className="absolute bottom-8 right-8 text-6xl animate-bounce delay-300">🎁</div>
                   
-                  {/* Birthday Countdown */}
-                  <div className="mb-8">
-                    {isBirthdayToday ? (
-                      <div className="bg-yellow-400/90 backdrop-blur-sm rounded-2xl px-6 py-3 inline-block shadow-lg animate-bounce">
-                        <p className="text-2xl md:text-3xl font-bold text-indigo-900">
-                          🎉 It's Your Birthday! 🎉
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-3 inline-block border-2 border-white/30">
-                        <p className="text-lg md:text-xl font-semibold text-white">
-                          {daysUntilBirthday === 1 ? (
-                            <>🎂 Birthday Tomorrow! 🎂</>
-                          ) : daysUntilBirthday <= 7 ? (
-                            <>🎈 {daysUntilBirthday} Days Until Your Birthday! 🎈</>
-                          ) : (
-                            <>📅 {daysUntilBirthday} Days Until October 18th</>
-                          )}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="mt-12 animate-pulse">
-                    <p className="text-2xl md:text-3xl font-semibold text-white bg-white/20 backdrop-blur-sm rounded-full px-8 py-4 border-2 border-white/50 shadow-lg">
-                      ✨ Click me to open! ✨
-                    </p>
+                  {/* Main content */}
+                  <div className="relative z-10">
+                    <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 drop-shadow-lg leading-tight">
+                      Happy {currentAge}th Birthday,
+                      <br />
+                      <span className="text-cyan-300">Alan!</span>
+                    </h1>
+                    
+                    {/* Birthday Countdown */}
+                    <div className="mb-8">
+                      {isBirthdayToday ? (
+                        <div className="bg-yellow-400/90 backdrop-blur-sm rounded-2xl px-6 py-3 inline-block shadow-lg animate-bounce">
+                          <p className="text-2xl md:text-3xl font-bold text-indigo-900">
+                            🎉 It's Your Birthday! 🎉
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-3 inline-block border-2 border-white/30">
+                          <p className="text-lg md:text-xl font-semibold text-white">
+                            {daysUntilBirthday === 1 ? (
+                              <>🎂 Birthday Tomorrow! 🎂</>
+                            ) : daysUntilBirthday <= 7 ? (
+                              <>🎈 {daysUntilBirthday} Days Until Your Birthday! 🎈</>
+                            ) : (
+                              <>📅 {daysUntilBirthday} Days Until October 18th</>
+                            )}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="mt-12 animate-pulse">
+                      <p className="text-2xl md:text-3xl font-semibold text-white bg-white/20 backdrop-blur-sm rounded-full px-8 py-4 border-2 border-white/50 shadow-lg">
+                        ✨ Click me to open! ✨
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
             </div>
+          )}
 
-            {/* CARD INTERIOR (Open View) */}
-            <div
-              className="w-full bg-white"
-              style={{
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden',
-                transform: 'rotateY(180deg)',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-              }}
-            >
-              <div className="bg-white rounded-3xl shadow-2xl overflow-auto border-4 border-blue-300 max-h-[85vh] relative z-10">
+          {/* CARD INTERIOR (Open View) */}
+          {isCardOpen && (
+            <div className="w-full animate-fade-in">
+              <div className="bg-white rounded-3xl shadow-2xl overflow-auto border-4 border-blue-300 max-h-[85vh]">
                 <div className="grid md:grid-cols-2 gap-0">
                   {/* INSIDE-LEFT PAGE */}
                   <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 md:p-8 border-r-2 border-blue-200">
@@ -268,7 +246,7 @@ function BirthdayCard() {
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
