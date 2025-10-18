@@ -1,13 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import confetti from 'canvas-confetti';
 
 function BirthdayCard() {
   const [isCardOpen, setIsCardOpen] = useState(false);
+  
+  // Alan's birthday - October 18, 2000
+  const birthdayDate = new Date('2000-10-18');
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const nextBirthday = new Date(currentYear, 9, 18); // Month is 0-indexed (9 = October)
+  
+  // If birthday has passed this year, calculate for next year
+  if (today > nextBirthday) {
+    nextBirthday.setFullYear(currentYear + 1);
+  }
+  
+  // Calculate days until birthday
+  const daysUntilBirthday = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
+  const isBirthdayToday = today.getMonth() === 9 && today.getDate() === 18;
+  
+  // Calculate current age
+  const currentAge = today.getFullYear() - birthdayDate.getFullYear();
 
   const handleCardClick = () => {
     if (!isCardOpen) {
       setIsCardOpen(true);
     }
   };
+  
+  // Trigger confetti when card opens
+  useEffect(() => {
+    if (isCardOpen) {
+      // Initial burst
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#3b82f6', '#6366f1', '#8b5cf6', '#06b6d4', '#fbbf24']
+      });
+      
+      // Second burst after a delay
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#3b82f6', '#6366f1', '#8b5cf6']
+        });
+      }, 200);
+      
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#06b6d4', '#fbbf24', '#3b82f6']
+        });
+      }, 400);
+    }
+  }, [isCardOpen]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-100 to-indigo-100 py-8 px-4">
@@ -44,10 +97,33 @@ function BirthdayCard() {
                 {/* Main content */}
                 <div className="relative z-10">
                   <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 drop-shadow-lg leading-tight">
-                    Happy 25th Birthday,
+                    Happy {currentAge}th Birthday,
                     <br />
                     <span className="text-cyan-300">Alan!</span>
                   </h1>
+                  
+                  {/* Birthday Countdown */}
+                  <div className="mb-8">
+                    {isBirthdayToday ? (
+                      <div className="bg-yellow-400/90 backdrop-blur-sm rounded-2xl px-6 py-3 inline-block shadow-lg animate-bounce">
+                        <p className="text-2xl md:text-3xl font-bold text-indigo-900">
+                          🎉 It's Your Birthday! 🎉
+                        </p>
+                      </div>
+                    ) : (
+                      <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-3 inline-block border-2 border-white/30">
+                        <p className="text-lg md:text-xl font-semibold text-white">
+                          {daysUntilBirthday === 1 ? (
+                            <>🎂 Birthday Tomorrow! 🎂</>
+                          ) : daysUntilBirthday <= 7 ? (
+                            <>🎈 {daysUntilBirthday} Days Until Your Birthday! 🎈</>
+                          ) : (
+                            <>📅 {daysUntilBirthday} Days Until October 18th</>
+                          )}
+                        </p>
+                      </div>
+                    )}
+                  </div>
                   
                   <div className="mt-12 animate-pulse">
                     <p className="text-2xl md:text-3xl font-semibold text-white bg-white/20 backdrop-blur-sm rounded-full px-8 py-4 border-2 border-white/50 shadow-lg">
@@ -140,13 +216,15 @@ function BirthdayCard() {
                       </h2>
                       <div className="bg-white/70 backdrop-blur-sm rounded-xl p-6 shadow-md border border-blue-200">
                         <p className="text-gray-700 leading-relaxed mb-4">
-                          Happy 25th birthday, Alan! You are getting old asf, this wild! 
-                          It feels like just yesterday we were hanging out, playing games, and getting into all kinds 
+                          Happy 25th birthday, Alan! You are getting old asf holay.  
+                          It feels like just yesterday we were hanging out, playing basketball, corner vs wr, playing 2k COD and smash, and getting into all kinds 
                           of weirdo shit. Time really does fly! Me and you are like lebron vs Kd and Goku vs Vegeta 
-                          we will always be competing. 
+                          we will always be competing.  
                         </p>
                         <p className="text-gray-700 leading-relaxed mb-4">
                           Here's to another year of epic moments, great times, and making unforgettable memories together!
+                          Thank you for being such a rock in my life love and appreciate you as always. I have always looked up
+                          to you a lot and I am privileged to have you as my best friend and role model.
                         </p>
                         <p className="text-gray-700 leading-relaxed font-semibold text-blue-700">
                           Wishing you all the best and always. Cheers to 25! 🍻
