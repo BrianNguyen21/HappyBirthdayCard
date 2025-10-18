@@ -67,7 +67,7 @@ function BirthdayCard() {
       <div className="max-w-6xl mx-auto">
         {/* Card Container with 3D perspective */}
         <div 
-          className="relative w-full"
+          className="relative w-full overflow-hidden"
           style={{ perspective: '2000px', minHeight: '600px' }}
         >
           {/* The actual card with flip animation */}
@@ -76,6 +76,7 @@ function BirthdayCard() {
             style={{
               transformStyle: 'preserve-3d',
               transform: isCardOpen ? 'rotateY(180deg)' : 'rotateY(0deg)',
+              position: 'relative',
             }}
           >
             {/* CARD FRONT (Closed View) */}
@@ -84,6 +85,9 @@ function BirthdayCard() {
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
+                transform: 'rotateY(0deg)',
+                zIndex: isCardOpen ? 1 : 2,
+                visibility: isCardOpen ? 'hidden' : 'visible',
               }}
               onClick={handleCardClick}
             >
@@ -136,14 +140,16 @@ function BirthdayCard() {
 
             {/* CARD INTERIOR (Open View) */}
             <div
-              className="absolute inset-0 w-full"
+              className="absolute inset-0 w-full bg-white"
               style={{
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
                 transform: 'rotateY(180deg)',
+                zIndex: isCardOpen ? 2 : 1,
+                visibility: isCardOpen ? 'visible' : 'hidden',
               }}
             >
-              <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-blue-300">
+              <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-blue-300 min-h-[600px]">
                 <div className="grid md:grid-cols-2 gap-0">
                   {/* INSIDE-LEFT PAGE */}
                   <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 md:p-8 border-r-2 border-blue-200">
